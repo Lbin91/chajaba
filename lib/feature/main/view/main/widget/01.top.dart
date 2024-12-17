@@ -7,12 +7,21 @@ class TopWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      children: [
+        _buildTopView(context, ref),
+      ],
+    );
+  }
+
+  Widget _buildTopView(BuildContext context, WidgetRef ref) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       width: double.infinity,
-      height: 80,
+      height: 60,
       color: Colors.white,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             '차자바',
@@ -24,9 +33,14 @@ class TopWidget extends ConsumerWidget {
             textAlign: TextAlign.left,
           ),
           SizedBox(),
-          Icon(
-            Icons.car_rental,
-            size: 24,
+          GestureDetector(
+            onTap: () {
+              //
+            },
+            child: Icon(
+              Icons.add,
+              size: 24,
+            ),
           ),
         ],
       ),
