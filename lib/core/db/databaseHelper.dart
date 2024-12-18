@@ -48,6 +48,12 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) => ParkingLocation.fromMap(maps[i]));
   }
 
+  Future<ParkingLocation> getParkingLocation(int id) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('parking_location', where: 'id = ?', whereArgs: [id]);
+    return ParkingLocation.fromMap(maps[0]);
+  }
+
   Future<void> insertParkingLocation(ParkingLocation parkingLocation) async {
     final db = await database;
     await db.insert('parking_location', parkingLocation.toMap());

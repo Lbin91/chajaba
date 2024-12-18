@@ -24,7 +24,7 @@ class TopWidget extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '차자바',
+            '어따댐(ParkWhere)',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -35,7 +35,11 @@ class TopWidget extends ConsumerWidget {
           SizedBox(),
           GestureDetector(
             onTap: () {
-              //
+              // 주차장 등록 페이지로 이동
+              context.pushNamed(
+                AppRoute.register.name,
+                pathParameters: {'parkingLocationId': '0'},
+              );
             },
             child: Icon(
               Icons.add,

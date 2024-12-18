@@ -1,4 +1,6 @@
 // 주차 위치
+import 'package:chajaba/feature/main/viewModel/register.dart';
+
 class ParkingLocation {
   final int id; // 주차장 아이디(고유값)
   final String name; // 주차장 이름
@@ -59,6 +61,34 @@ class ParkingLocation {
       endTime: map['end_time'],
     );
     return parkingLocation;
+  }
+
+  ParkingLocation copyWith({
+    int? id,
+    String? name,
+    String? address,
+    String? parkingImage,
+    String? parkingType,
+    bool? isRepeat,
+    String? floor,
+    String? section,
+    List<DayOfWeek>? days,
+    String? startTime,
+    String? endTime,
+  }) {
+    return ParkingLocation(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      address: address ?? this.address,
+      parkingImage: parkingImage ?? this.parkingImage,
+      parkingType: parkingType ?? this.parkingType,
+      isRepeat: isRepeat ?? this.isRepeat,
+      floor: floor ?? this.floor,
+      section: section ?? this.section,
+      days: days ?? this.days,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+    );
   }
 }
 

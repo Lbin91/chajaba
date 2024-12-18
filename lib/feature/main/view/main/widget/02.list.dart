@@ -9,8 +9,7 @@ class ParkingList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: ListView.builder(
-        itemCount:
-            state.parkingLocations.isEmpty ? 1 : state.parkingLocations.length,
+        itemCount: state.parkingLocations.isEmpty ? 1 : state.parkingLocations.length,
         itemBuilder: (context, index) {
           return state.parkingLocations.isEmpty
               ? _buildParkingItemEmpty(context, ref)
@@ -20,8 +19,7 @@ class ParkingList extends ConsumerWidget {
     );
   }
 
-  Widget _buildParkingItem(
-      BuildContext context, WidgetRef ref, ParkingLocation parkingLocation) {
+  Widget _buildParkingItem(BuildContext context, WidgetRef ref, ParkingLocation parkingLocation) {
     return Container(
       width: double.infinity,
       height: 100,
@@ -34,8 +32,8 @@ class ParkingList extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Container(
-        width: 330,
-        height: 100,
+        width: 328,
+        height: 328 * (0.75),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
