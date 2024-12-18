@@ -2,7 +2,3 @@ android/local.properties
 .dart_tool
 build
 ios/Pods
-ios/.symlinks
-ios/Flutter
-.flutter-plugins
-.flutter-plugins-dependencies
