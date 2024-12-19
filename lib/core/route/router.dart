@@ -39,19 +39,21 @@ GoRouter goRouter(Ref ref) {
         builder: (context, state) => RigsterView(parkingLocationId: int.parse(state.pathParameters['parkingLocationId'] ?? '0')),
       ),
     ],
-    observers: [
-      GoRouterObserver(ref),
-    ],
     redirect: (context, state) => null,
   );
 }
 
-class GoRouterObserver extends NavigatorObserver {
-  final Ref ref;
-  GoRouterObserver(this.ref);
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen((dynamic event) => notifyListeners());
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
 
   @override
-  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
-    ref.read(currentRouteProvider.notifier).update((_) => route.settings.name ?? '/');
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }

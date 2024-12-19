@@ -17,10 +17,17 @@ class InfoWidget extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-            _buildInputResult(ref),
-            SizedBox(height: 10),
-            if (state.step < 3) _buildTextField(ref),
-            if (state.step >= 3) _buildDayPicker(ref),
+            Expanded(
+              child: Column(
+                children: [
+                  _buildInputResult(ref),
+                  SizedBox(height: 10),
+                  if (state.step < 3) _buildTextField(ref),
+                  if (state.step >= 3) _buildDayPicker(ref),
+                ],
+              ),
+            ),
+            _buildButtonNext(ref),
           ],
         ),
       );
@@ -52,7 +59,9 @@ class InfoWidget extends StatelessWidget {
       children: [
         // null이나 공백이 아닌 항목만 Text 위젯으로 출력
         if (state.parkingLocation?.name.isNotEmpty == true) _buildInputItem(state.parkingLocation!.name, 0, ref),
+        SizedBox(width: 10),
         if (state.parkingLocation?.floor?.isNotEmpty == true) _buildInputItem(state.parkingLocation!.floor!, 1, ref),
+        SizedBox(width: 10),
         if (state.parkingLocation?.section?.isNotEmpty == true) _buildInputItem(state.parkingLocation!.section!, 2, ref),
       ],
     );
@@ -84,7 +93,7 @@ class InfoWidget extends StatelessWidget {
   // 요일 선택 위젯
   Widget _buildDayPicker(WidgetRef ref) {
     return Container(
-      height: state.parkingLocation?.isRepeat ?? false ? 150 : 100,
+      height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -95,39 +104,52 @@ class InfoWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '반복',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Column(
+          children: [
+            SizedBox(height: 5),
+            Container(
+              width: double.infinity,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    '반복',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(),
+                  CupertinoSwitch(
+                    value: state.parkingLocation?.isRepeat ?? false,
+                    onChanged: (value) {
+                      ref.read(registerViewModelProvider(parkingLocationId).notifier).updateRepeat(value);
+                    },
+                  ),
+                ],
               ),
-              SizedBox(),
-              CupertinoSwitch(
-                value: state.parkingLocation?.isRepeat ?? false,
-                onChanged: (value) {
-                  ref.read(registerViewModelProvider(parkingLocationId).notifier).updateRepeat(value);
-                },
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          _buildWeekPicker(ref),
-        ],
+            ),
+            SizedBox(height: 5),
+            _buildWeekPicker(ref),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildWeekPicker(WidgetRef ref) {
-    return Row(
-      children: [
-        for (var day in ['월', '화', '수', '목', '금', '토', '일']) _buildDayButton(day),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          for (var day in ['월', '화', '수', '목', '금', '토', '일']) _buildDayButton(day),
+        ],
+      ),
     );
   }
 
@@ -135,7 +157,36 @@ class InfoWidget extends StatelessWidget {
     return Container(
       width: 40,
       height: 40,
-      child: Text(day),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(day,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
+    );
+  }
+
+  Widget _buildButtonNext(WidgetRef ref) {
+    return Container(
+      width: double.infinity,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.deepPurple,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text('다음',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            )),
+      ),
     );
   }
 }

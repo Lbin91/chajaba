@@ -1,5 +1,8 @@
 // 주차 위치
+import 'dart:ui';
+
 import 'package:chajaba/feature/main/viewModel/register.dart';
+import 'package:flutter/material.dart';
 
 class ParkingLocation {
   final int id; // 주차장 아이디(고유값)
@@ -93,15 +96,17 @@ class ParkingLocation {
 }
 
 enum DayOfWeek {
-  monday('mon'),
-  tuesday('tue'),
-  wednesday('wed'),
-  thursday('thu'),
-  friday('fri'),
-  saturday('sat'),
-  sunday('sun');
+  monday('mon', 0, Colors.black),
+  tuesday('tue', 1, Colors.black),
+  wednesday('wed', 2, Colors.black),
+  thursday('thu', 3, Colors.black),
+  friday('fri', 4, Colors.black),
+  saturday('sat', 5, Colors.blue),
+  sunday('sun', 6, Colors.red);
 
   final String shortName;
+  final int saveIndex;
+  final Color color;
 
-  const DayOfWeek(this.shortName);
+  const DayOfWeek(this.shortName, this.saveIndex, this.color);
 }

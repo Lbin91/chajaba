@@ -51,8 +51,10 @@ class RigsterView extends ConsumerWidget {
           ),
         ],
       ),
-      body: Center(
-        child: InfoWidget(state: state, parkingLocationId: parkingLocationId),
+      body: SafeArea(
+        child: Center(
+          child: InfoWidget(state: state, parkingLocationId: parkingLocationId),
+        ),
       ),
     );
   }
