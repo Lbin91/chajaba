@@ -48,7 +48,9 @@ class InfoWidget extends StatelessWidget {
         border: OutlineInputBorder(),
       ),
       onSubmitted: (value) {
-        ref.read(registerViewModelProvider(parkingLocationId).notifier).nextStep(_textController.text);
+        ref
+            .read(registerViewModelProvider(parkingLocationId).notifier)
+            .nextStep(_textController.text);
         _focusNode.requestFocus();
       },
     );
@@ -58,11 +60,14 @@ class InfoWidget extends StatelessWidget {
     return Row(
       children: [
         // null이나 공백이 아닌 항목만 Text 위젯으로 출력
-        if (state.parkingLocation?.name.isNotEmpty == true) _buildInputItem(state.parkingLocation!.name, 0, ref),
+        if (state.parkingLocation?.name.isNotEmpty == true)
+          _buildInputItem(state.parkingLocation!.name, 0, ref),
         SizedBox(width: 10),
-        if (state.parkingLocation?.floor?.isNotEmpty == true) _buildInputItem(state.parkingLocation!.floor!, 1, ref),
+        if (state.parkingLocation?.floor?.isNotEmpty == true)
+          _buildInputItem(state.parkingLocation!.floor!, 1, ref),
         SizedBox(width: 10),
-        if (state.parkingLocation?.section?.isNotEmpty == true) _buildInputItem(state.parkingLocation!.section!, 2, ref),
+        if (state.parkingLocation?.section?.isNotEmpty == true)
+          _buildInputItem(state.parkingLocation!.section!, 2, ref),
       ],
     );
   }
@@ -72,7 +77,9 @@ class InfoWidget extends StatelessWidget {
       onTap: () {
         _textController.text = value;
         _focusNode.requestFocus();
-        ref.read(registerViewModelProvider(parkingLocationId).notifier).moveToTargetStep(index);
+        ref
+            .read(registerViewModelProvider(parkingLocationId).notifier)
+            .moveToTargetStep(index);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -127,7 +134,10 @@ class InfoWidget extends StatelessWidget {
                   CupertinoSwitch(
                     value: state.parkingLocation?.isRepeat ?? false,
                     onChanged: (value) {
-                      ref.read(registerViewModelProvider(parkingLocationId).notifier).updateRepeat(value);
+                      ref
+                          .read(registerViewModelProvider(parkingLocationId)
+                              .notifier)
+                          .updateRepeat(value);
                     },
                   ),
                 ],
@@ -147,7 +157,8 @@ class InfoWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          for (var day in ['월', '화', '수', '목', '금', '토', '일']) _buildDayButton(day),
+          for (var day in ['월', '화', '수', '목', '금', '토', '일'])
+            _buildDayButton(day),
         ],
       ),
     );
